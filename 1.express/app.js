@@ -1,11 +1,15 @@
 var app = function(req,res){
-
+  
 }
-app.use(function(req,res,next){
+//存放中间件函数的数组
+app.routes = [];
+app.use = function(fn){
+    app.routes.push(fn);
+}
+app.use(function(req,res){
     console.log(1);
-    next();
 });
-app.use(function(req,res,next){
+app.use(function(req,res){
     console.log(2);
     res.end('ok');
 });
