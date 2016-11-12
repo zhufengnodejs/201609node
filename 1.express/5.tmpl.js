@@ -4,6 +4,7 @@ var path = require('path');
 var app = express();
 //设置模板引擎 用来添加文件后缀的
 app.set('view engine','html');
+//console.log(app.get('view engine'));
 //设置模板存放目录 指定一个模板的绝对路径
 app.set('views',path.join(__dirname,'views'));
 //设置对于html类型的模板使用ejs来进行渲染
