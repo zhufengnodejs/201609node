@@ -6,7 +6,7 @@
  */
 var express = require('express');
 var http  = require('http');
-console.log(http.STATUS_CODES);
+//console.log(http.STATUS_CODES);
 var url = require('url');
 var app = express();
 // app.use(function (req,res,next) {
@@ -22,6 +22,7 @@ var app = express();
  * instanceOf
  */
 var util = require('util');
+/**
 app.use(function(req,res,next){
     res.send = function(params){
         var type = typeof params;//获得参数类型
@@ -41,11 +42,11 @@ app.use(function(req,res,next){
                 break;
             default:
                 res.end(util.inspect(params));
-
         }
     }
     next();
 });
+ **/
 app.get('/',function(req,res){
    /* console.log('method=',req.method);
     var urlObj = url.parse(req.url,true);
@@ -59,7 +60,8 @@ app.get('/',function(req,res){
      * 参数是字符串 Content-Type:text/html; charset=utf-8
      * 参数是数字 把数字当成了状态码 响应体是对应的描述短语 Content-Type:text/plain; charset=utf-8
      */
-    res.send({name:'zfpx'});
+   // res.status(404).send('页面不存在');
+    res.sendStatus(404);
 });
 //获取某个用户的信息  路径可以写正则
 /*app.get(/^\/users\/(\w+)$/,function(req,res){
