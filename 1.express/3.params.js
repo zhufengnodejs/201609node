@@ -5,14 +5,61 @@
  * 请求体 body
  */
 var express = require('express');
+var http  = require('http');
+console.log(http.STATUS_CODES);
 var url = require('url');
 var app = express();
+// app.use(function (req,res,next) {
+//     var urlObj = url.parse(req.url,true);
+//     req.path = urlObj.pathname;
+//     req.query = urlObj.query;
+//     next();
+// });
+/**
+ * typeof number object
+ * Object.prototype.toString.call Array Object
+ * obj.constructor
+ * instanceOf
+ */
+var util = require('util');
+app.use(function(req,res,next){
+    res.send = function(params){
+        var type = typeof params;//获得参数类型
+        switch (type){//判断参数类型
+            case 'object'://如果是对象
+                res.setHeader('Content-Type','application/json; charset=utf-8');
+                res.end(JSON.stringify(params));
+                break;
+            case 'string':
+                res.setHeader('Content-Type','text/html; charset=utf-8');
+                res.end(params);
+                break;
+            case 'number':
+                res.setHeader('Content-Type','text/plain; charset=utf-8');
+                res.statusCode = params;
+                res.end(http.STATUS_CODES[params]);
+                break;
+            default:
+                res.end(util.inspect(params));
+
+        }
+    }
+    next();
+});
 app.get('/',function(req,res){
-    console.log('method=',req.method);
+   /* console.log('method=',req.method);
     var urlObj = url.parse(req.url,true);
     console.log('pathname=',urlObj.pathname);
-    console.log('query=',urlObj.query);
-    res.end()
+    console.log('query=',urlObj.query);*/
+    console.log(req.path);
+    console.log(req.query);
+    //First argument must be a string or Buffer
+    /**
+     * 参数是对象 Content-Type:application/json; charset=utf-8
+     * 参数是字符串 Content-Type:text/html; charset=utf-8
+     * 参数是数字 把数字当成了状态码 响应体是对应的描述短语 Content-Type:text/plain; charset=utf-8
+     */
+    res.send({name:'zfpx'});
 });
 //获取某个用户的信息  路径可以写正则
 /*app.get(/^\/users\/(\w+)$/,function(req,res){

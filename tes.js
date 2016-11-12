@@ -1,9 +1,2 @@
-function App(){
-
-}
-
-App.use = function(){
-    this;
-}
-var app = new App();
-app.use();
+var util = require('util');
+console.log(util.inspect({name:'zfpx'}));
