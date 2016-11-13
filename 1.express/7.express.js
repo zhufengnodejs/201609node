@@ -35,7 +35,15 @@ app.get('/reg',function(req,res){
     }else{//获取空白表单
           //模板的路径 views的父目录+reg+view engine后缀
         //render方法自带end 获取模板 渲染模板为html 发送给客户端并结束响应 end
-        res.render('reg',{title:'用户注册'});
+        /**
+         * 如果不传回调函数 先渲染模板 然后直接返回给客户端并结束响应
+         * 如果传回调函数 只管渲染模板，把渲染后的HTML字符串传给回调函数
+         */
+        res.render('reg',{title:'用户注册'},function(err,html){
+            console.log(html);
+            html = html.toUpperCase();
+            res.send(html);
+        });
     }
 });
 app.get('/login',function(req,res){
