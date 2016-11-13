@@ -1,2 +1,2 @@
-var util = require('util');
-console.log(util.inspect({name:'zfpx'}));
+var querystring = require('querystring');
+console.log(querystring.parse('name@zfpx; age@8','; ','@'));
